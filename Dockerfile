@@ -1,6 +1,6 @@
 FROM quay.io/quamotion/android-x86-kernel:base AS build
 
-ENV KERNEL_VERSION=android-x86-7.1-r2
+ENV KERNEL_VERSION=android-x86/kernel-4.9
 
 RUN cd linux \
 && git fetch android-x86 \
