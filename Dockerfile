@@ -37,9 +37,108 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && export INSTALL_PATH=$install \
 && LOCALVERSION="-kubedroid-guest" \
 && cd linux \
+#
+# SELinux
+#
 && scripts/config --enable SECURITY_SELINUX_BOOTPARAM \
 && scripts/config --set-val SECURITY_SELINUX_BOOTPARAM_VALUE 1 \
 && scripts/config --enable SECURITY_SELINUX_DISABLE \
+#
+# Trim down kernel
+#
+&& scripts/config --disable DEBUG_INFO \
+&& scripts/config --disable CONFIG_BT \
+&& scripts/config --disable CONFIG_DRM_RADEON \
+&& scripts/config --disable CONFIG_DRM_AMDGPU \
+&& scripts/config --disable CONFIG_DRM_NOUVEAU \
+&& scripts/config --disable CONFIG_DRM_GMA500 \
+&& scripts/config --disable CONFIG_DRM_GMA600 \
+&& scripts/config --disable CONFIG_DRM_GMA3600 \
+&& scripts/config --disable CONFIG_DRM_UDL \
+&& scripts/config --disable CONFIG_DRM_AST \
+&& scripts/config --disable CONFIG_DRM_MGAG200 \
+&& scripts/config --disable CONFIG_DRM_BOCHS \
+&& scripts/config --disable CONFIG_DRM_VMWGFX \
+&& scripts/config --disable CONFIG_EXTCON \
+&& scripts/config --disable CONFIG_I2C \
+&& scripts/config --disable CONFIG_HWMON \
+&& scripts/config --disable CONFIG_REISERFS_FS \
+&& scripts/config --disable CONFIG_JFS_FS \
+&& scripts/config --disable CONFIG_XFS_FS \
+&& scripts/config --disable CONFIG_OCFS2_FS \
+&& scripts/config --disable CONFIG_BTRFS_FS \
+&& scripts/config --disable CONFIG_F2FS_FS \
+&& scripts/config --disable CONFIG_UDF_FS \
+&& scripts/config --disable CONFIG_9P_FS \
+&& scripts/config --disable CONFIG_CIFS \
+&& scripts/config --disable CONFIG_FUSE_FS \
+&& scripts/config --disable CONFIG_IIO \
+&& scripts/config --disable CONFIG_INPUT_LEDS \
+&& scripts/config --disable CONFIG_INPUT_JOYDEV \
+&& scripts/config --disable CONFIG_INPUT_TOUCHSCREEN \
+&& scripts/config --disable CONFIG_INPUT_MISC \
+&& scripts/config --disable CONFIG_MEDIA_SUPPORT \
+&& scripts/config --disable CONFIG_NET_VENDOR_3COM \
+&& scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC \
+&& scripts/config --disable CONFIG_NET_VENDOR_AGERE \
+&& scripts/config --disable CONFIG_NET_VENDOR_ALTEON \
+&& scripts/config --disable CONFIG_NET_VENDOR_AMAZON \
+&& scripts/config --disable CONFIG_NET_VENDOR_AMD \
+&& scripts/config --disable CONFIG_NET_VENDOR_ARC \
+&& scripts/config --disable CONFIG_NET_VENDOR_ATHEROS \
+&& scripts/config --disable CONFIG_NET_VENDOR_AURORA \
+&& scripts/config --disable CONFIG_NET_VENDOR_BROADCOM \
+&& scripts/config --disable CONFIG_NET_VENDOR_BROCADE \
+&& scripts/config --disable CONFIG_NET_VENDOR_CAVIUM \
+&& scripts/config --disable CONFIG_NET_VENDOR_CHELSIO \
+&& scripts/config --disable CONFIG_NET_VENDOR_CISCO \
+&& scripts/config --disable CONFIG_NET_VENDOR_DEC \
+&& scripts/config --disable CONFIG_NET_VENDOR_DLINK \
+&& scripts/config --disable CONFIG_NET_VENDOR_EMULEX \
+&& scripts/config --disable CONFIG_NET_VENDOR_EZCHIP \
+&& scripts/config --disable CONFIG_NET_VENDOR_EXAR \
+&& scripts/config --disable CONFIG_NET_VENDOR_FUJITSU \
+&& scripts/config --disable CONFIG_NET_VENDOR_HP \
+# keep intel
+&& scripts/config --disable CONFIG_NET_VENDOR_I825XX \
+&& scripts/config --disable CONFIG_NET_VENDOR_MARVELL \
+&& scripts/config --disable CONFIG_NET_VENDOR_MELLANOX \
+&& scripts/config --disable CONFIG_NET_VENDOR_MICREL \
+&& scripts/config --disable CONFIG_NET_VENDOR_MICROCHIP \
+&& scripts/config --disable CONFIG_NET_VENDOR_MYRI \
+&& scripts/config --disable CONFIG_NET_VENDOR_NATSEMI \
+&& scripts/config --disable CONFIG_NET_VENDOR_NETRONOME \
+&& scripts/config --disable CONFIG_NET_VENDOR_8390 \
+&& scripts/config --disable CONFIG_NET_VENDOR_NVIDIA \
+&& scripts/config --disable CONFIG_NET_VENDOR_OKI \
+&& scripts/config --disable CONFIG_NET_VENDOR_QLOGIC \
+&& scripts/config --disable CONFIG_NET_VENDOR_QUALCOMM \
+&& scripts/config --disable CONFIG_NET_VENDOR_REALTEK \
+&& scripts/config --disable CONFIG_NET_VENDOR_RENESAS \
+&& scripts/config --disable CONFIG_NET_VENDOR_RDC \
+&& scripts/config --disable CONFIG_NET_VENDOR_ROCKER \
+&& scripts/config --disable CONFIG_NET_VENDOR_SAMSUNG \
+&& scripts/config --disable CONFIG_NET_VENDOR_SEEQ \
+&& scripts/config --disable CONFIG_NET_VENDOR_SILAN \
+&& scripts/config --disable CONFIG_NET_VENDOR_SIS \
+&& scripts/config --disable CONFIG_NET_VENDOR_SMSC \
+&& scripts/config --disable CONFIG_NET_VENDOR_STMICRO \
+&& scripts/config --disable CONFIG_NET_VENDOR_SUN \
+&& scripts/config --disable CONFIG_NET_VENDOR_SYNOPSYS \
+&& scripts/config --disable CONFIG_NET_VENDOR_TEHUTI \
+&& scripts/config --disable CONFIG_NET_VENDOR_TI \
+&& scripts/config --disable CONFIG_NET_VENDOR_VIA \
+&& scripts/config --disable CONFIG_NET_VENDOR_WIZNET \
+&& scripts/config --disable CONFIG_NET_VENDOR_XIRCOM \
+&& scripts/config --disable CONFIG_MEDIA_TUNER \
+&& scripts/config --disable CONFIG_SCSI \
+&& scripts/config --disable CONFIG_SND \
+&& scripts/config --disable CONFIG_SOC_CAMERA \
+&& scripts/config --disable CONFIG_VIDEO_DEV \
+&& scripts/config --disable CONFIG_WIRELESS \
+#
+# Build
+#
 && make -j$(nproc) \
 && make modules_install \
 && make install
