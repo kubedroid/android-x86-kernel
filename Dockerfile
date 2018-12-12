@@ -37,6 +37,9 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && export INSTALL_PATH=$install \
 && LOCALVERSION="-kubedroid-guest" \
 && cd linux \
+&& scripts/config --enable SECURITY_SELINUX_BOOTPARAM \
+&& scripts/config --set-val SECURITY_SELINUX_BOOTPARAM_VALUE 1 \
+&& scripts/config --enable SECURITY_SELINUX_DISABLE \
 && make -j$(nproc) \
 && make modules_install \
 && make install
