@@ -2,11 +2,7 @@ FROM quay.io/quamotion/android-x86-kernel:base AS build
 
 ENV KERNEL_VERSION=android-x86-7.1-r2
 
-RUN apt-get update && apt-get install -y kmod
-
-RUN git clone https://github.com/kubedroid/virtual_touchscreen \
-&& cd linux \
-&& git remote add android-x86 https://scm.osdn.net/gitroot/android-x86/kernel.git \
+RUN cd linux \
 && git fetch android-x86 \
 && git checkout $KERNEL_VERSION
 
@@ -23,7 +19,7 @@ RUN cd linux \
 && if [ -f linux-412.patch ]; then patch -p1 -d $BROADCOM_DIR -i linux-412.patch; fi \
 && if [ -f linux-415.patch ]; then patch -p1 -d $BROADCOM_DIR -i linux-415.patch; fi
 
-RUN export install=/android/kernel/$KERNEL_VERSION \
+RUN export install=/android/kernel/ \
 && mkdir -p $install \
 && export gcc=$(pwd)/x86_64-linux-glibc2.11-4.6/bin/x86_64-linux- \
 && export ARCH=x86_64 \
@@ -152,6 +148,9 @@ RUN export gcc=$(pwd)/x86_64-linux-glibc2.11-4.6/bin/x86_64-linux- \
 && cd linux \
 && make modules M=../virtual_touchscreen/ \
 && cp ../virtual_touchscreen/*.ko /android/kernel/
+
+RUN cd linux \
+&& cp .config /android/kernel/
 
 FROM ubuntu:bionic
 
