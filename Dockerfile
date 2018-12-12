@@ -33,10 +33,14 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && echo "" | make android-x86_64_defconfig \
 #
 # SELinux
+# See https://osdn.net/projects/android-x86/scm/git/device-generic-common/commits/9c64ea75860c945f9432eac9e013f0c291d9d4f6
 #
-&& scripts/config --enable SECURITY_SELINUX_BOOTPARAM \
-&& scripts/config --set-val SECURITY_SELINUX_BOOTPARAM_VALUE 1 \
-&& scripts/config --enable SECURITY_SELINUX_DISABLE \
+&& scripts/config --enable CONFIG_SECURITY_PATH \
+&& scripts/config --enable CONFIG_SECURITY_SELINUX_BOOTPARAM \
+&& scripts/config --set-val CONFIG_SECURITY_SELINUX_BOOTPARAM_VALUE 1 \
+&& scripts/config --set-val CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE 1 \
+&& scripts/config --enable CONFIG_DEFAULT_SECURITY_SELINUX \
+&& scripts/config --set-str CONFIG_DEFAULT_SECURITY "selinux" \
 #
 # Trim down kernel
 #
