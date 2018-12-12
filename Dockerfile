@@ -12,6 +12,9 @@ RUN cd linux \
 && cp arch/x86/configs/android-x86_64_defconfig .config \
 && echo "" | make oldconfig
 
+RUN apt-get update \
+&& apt-get install -y kmod
+
 RUN cd linux \
 && export BROADCOM_DIR=drivers/net/wireless/broadcom/wl \
 && wget https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz \
