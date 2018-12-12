@@ -44,7 +44,7 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 RUN export gcc=$(pwd)/x86_64-linux-glibc2.11-4.6/bin/x86_64-linux- \
 && export ARCH=x86_64 \
 && export CROSS_COMPILE=$gcc \
-&& cd kernel \
+&& cd linux \
 && make modules M=../virtual_touchscreen/ \
 && cp ../virtual_touchscreen/*.ko /android/kernel/
 
