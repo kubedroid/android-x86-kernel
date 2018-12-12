@@ -2,6 +2,8 @@ FROM quay.io/quamotion/android-x86-kernel:base AS build
 
 ENV KERNEL_VERSION=android-x86-7.1-r2
 
+RUN apt-get update && apt-get install -y kmod
+
 RUN git clone https://github.com/kubedroid/virtual_touchscreen \
 && cd linux \
 && git remote add android-x86 https://scm.osdn.net/gitroot/android-x86/kernel.git \
@@ -30,7 +32,8 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && export INSTALL_PATH=$install \
 && export LOCALVERSION="-kubedroid-guest" \
 && cd linux \
-&& echo "" | make android-x86_64_defconfig \
+&& cp arch/x86/configs/android-x86_64_defconfig .config \
+&& echo "" | make olddefconfig \
 #
 # SELinux
 # See https://osdn.net/projects/android-x86/scm/git/device-generic-common/commits/9c64ea75860c945f9432eac9e013f0c291d9d4f6
@@ -41,41 +44,42 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && scripts/config --set-val CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE 1 \
 && scripts/config --enable CONFIG_DEFAULT_SECURITY_SELINUX \
 && scripts/config --set-str CONFIG_DEFAULT_SECURITY "selinux" \
+&& scripts/config --disable CONFIG_DEFAULT_SECURITY_DAC \
 #
 # Trim down kernel
 #
 && scripts/config --disable DEBUG_INFO \
 && scripts/config --disable CONFIG_BT \
-&& scripts/config --disable CONFIG_DRM_RADEON \
-&& scripts/config --disable CONFIG_DRM_AMDGPU \
-&& scripts/config --disable CONFIG_DRM_NOUVEAU \
-&& scripts/config --disable CONFIG_DRM_GMA500 \
-&& scripts/config --disable CONFIG_DRM_GMA600 \
-&& scripts/config --disable CONFIG_DRM_GMA3600 \
-&& scripts/config --disable CONFIG_DRM_UDL \
-&& scripts/config --disable CONFIG_DRM_AST \
-&& scripts/config --disable CONFIG_DRM_MGAG200 \
-&& scripts/config --disable CONFIG_DRM_BOCHS \
-&& scripts/config --disable CONFIG_DRM_VMWGFX \
-&& scripts/config --disable CONFIG_EXTCON \
-&& scripts/config --disable CONFIG_I2C \
-&& scripts/config --disable CONFIG_HWMON \
-&& scripts/config --disable CONFIG_REISERFS_FS \
-&& scripts/config --disable CONFIG_JFS_FS \
-&& scripts/config --disable CONFIG_XFS_FS \
-&& scripts/config --disable CONFIG_OCFS2_FS \
-&& scripts/config --disable CONFIG_BTRFS_FS \
-&& scripts/config --disable CONFIG_F2FS_FS \
-&& scripts/config --disable CONFIG_UDF_FS \
-&& scripts/config --disable CONFIG_9P_FS \
-&& scripts/config --disable CONFIG_CIFS \
-&& scripts/config --disable CONFIG_FUSE_FS \
-&& scripts/config --disable CONFIG_IIO \
-&& scripts/config --disable CONFIG_INPUT_LEDS \
-&& scripts/config --disable CONFIG_INPUT_JOYDEV \
-&& scripts/config --disable CONFIG_INPUT_TOUCHSCREEN \
-&& scripts/config --disable CONFIG_INPUT_MISC \
-&& scripts/config --disable CONFIG_MEDIA_SUPPORT \
+#&& scripts/config --disable CONFIG_DRM_RADEON \
+#&& scripts/config --disable CONFIG_DRM_AMDGPU \
+#&& scripts/config --disable CONFIG_DRM_NOUVEAU \
+#&& scripts/config --disable CONFIG_DRM_GMA500 \
+#&& scripts/config --disable CONFIG_DRM_GMA600 \
+#&& scripts/config --disable CONFIG_DRM_GMA3600 \
+#&& scripts/config --disable CONFIG_DRM_UDL \
+#&& scripts/config --disable CONFIG_DRM_AST \
+#&& scripts/config --disable CONFIG_DRM_MGAG200 \
+#&& scripts/config --disable CONFIG_DRM_BOCHS \
+#&& scripts/config --disable CONFIG_DRM_VMWGFX \
+#&& scripts/config --disable CONFIG_EXTCON \
+#&& scripts/config --disable CONFIG_I2C \
+#&& scripts/config --disable CONFIG_HWMON \
+#&& scripts/config --disable CONFIG_REISERFS_FS \
+#&& scripts/config --disable CONFIG_JFS_FS \
+#&& scripts/config --disable CONFIG_XFS_FS \
+#&& scripts/config --disable CONFIG_OCFS2_FS \
+#&& scripts/config --disable CONFIG_BTRFS_FS \
+#&& scripts/config --disable CONFIG_F2FS_FS \
+#&& scripts/config --disable CONFIG_UDF_FS \
+#&& scripts/config --disable CONFIG_9P_FS \
+#&& scripts/config --disable CONFIG_CIFS \
+#&& scripts/config --disable CONFIG_FUSE_FS \
+#&& scripts/config --disable CONFIG_IIO \
+#&& scripts/config --disable CONFIG_INPUT_LEDS \
+#&& scripts/config --disable CONFIG_INPUT_JOYDEV \
+#&& scripts/config --disable CONFIG_INPUT_TOUCHSCREEN \
+#&& scripts/config --disable CONFIG_INPUT_MISC \
+#&& scripts/config --disable CONFIG_MEDIA_SUPPORT \
 && scripts/config --disable CONFIG_NET_VENDOR_3COM \
 && scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC \
 && scripts/config --disable CONFIG_NET_VENDOR_AGERE \
@@ -128,17 +132,17 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && scripts/config --disable CONFIG_NET_VENDOR_VIA \
 && scripts/config --disable CONFIG_NET_VENDOR_WIZNET \
 && scripts/config --disable CONFIG_NET_VENDOR_XIRCOM \
-&& scripts/config --disable CONFIG_MEDIA_TUNER \
-&& scripts/config --disable CONFIG_SCSI \
-&& scripts/config --disable CONFIG_SND \
-&& scripts/config --disable CONFIG_SOC_CAMERA \
-&& scripts/config --disable CONFIG_VIDEO_DEV \
-&& scripts/config --disable CONFIG_WIRELESS \
+#&& scripts/config --disable CONFIG_MEDIA_TUNER \
+#&& scripts/config --disable CONFIG_SCSI \
+#&& scripts/config --disable CONFIG_SND \
+#&& scripts/config --disable CONFIG_SOC_CAMERA \
+#&& scripts/config --disable CONFIG_VIDEO_DEV \
+#&& scripts/config --disable CONFIG_WIRELESS \
+#&& cp .config arch/x86/configs/android-x86_64_defconfig \
 #
 # Build
 #
-&& touch .scmversion \
-&& echo "" | make oldconfig \
+&& cat .config | grep  CONFIG_DEFAULT_SECURITY \
 && make -j$(nproc) \
 && make modules_install \
 && make install
