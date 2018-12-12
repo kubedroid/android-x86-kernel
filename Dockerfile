@@ -9,10 +9,6 @@ RUN git clone https://github.com/kubedroid/virtual_touchscreen \
 && git checkout $KERNEL_VERSION
 
 RUN cd linux \
-&& cp arch/x86/configs/android-x86_64_defconfig .config \
-&& echo "" | make oldconfig
-
-RUN cd linux \
 && export BROADCOM_DIR=drivers/net/wireless/broadcom/wl \
 && wget https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz \
 && tar zxf hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz -C $BROADCOM_DIR --overwrite -m \
@@ -32,8 +28,9 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && export CROSS_COMPILE=$gcc \
 && export INSTALL_MOD_PATH=$install \
 && export INSTALL_PATH=$install \
-&& LOCALVERSION="-kubedroid-guest" \
+&& export LOCALVERSION="-kubedroid-guest" \
 && cd linux \
+&& echo "" | make android-x86_64_defconfig \
 #
 # SELinux
 #
@@ -136,6 +133,8 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 #
 # Build
 #
+&& touch .scmversion \
+&& echo "" | make oldconfig \
 && make -j$(nproc) \
 && make modules_install \
 && make install
