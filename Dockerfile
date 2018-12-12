@@ -1,12 +1,14 @@
+
 FROM quay.io/quamotion/android-x86-kernel:base AS build
 
-ENV KERNEL_VERSION=android-x86/kernel-4.9
+ENV KERNEL_VERSION=android-x86/kernel-4.18
 
 RUN cd linux \
 && git fetch android-x86 \
 && git checkout $KERNEL_VERSION
 
 RUN cd linux \
+# See https://github.com/maurossi/linux/blob/kernel-4.20rc6/drivers/net/wireless/broadcom/wl/build.mk
 && export BROADCOM_DIR=drivers/net/wireless/broadcom/wl \
 && wget https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz \
 && tar zxf hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz -C $BROADCOM_DIR --overwrite -m \
@@ -15,9 +17,9 @@ RUN cd linux \
 && patch -p1 -d $BROADCOM_DIR -i wl.patch \
 && patch -p1 -d $BROADCOM_DIR -i linux-recent.patch \
 && patch -p1 -d $BROADCOM_DIR -i linux-48.patch \
-&& if [ -f linux-411.patch ]; then patch -p1 -d $BROADCOM_DIR -i linux-411.patch; fi \
-&& if [ -f linux-412.patch ]; then patch -p1 -d $BROADCOM_DIR -i linux-412.patch; fi \
-&& if [ -f linux-415.patch ]; then patch -p1 -d $BROADCOM_DIR -i linux-415.patch; fi
+&& patch -p1 -d $BROADCOM_DIR -i linux-411.patch \
+&& patch -p1 -d $BROADCOM_DIR -i linux-412.patch \
+&& patch -p1 -d $BROADCOM_DIR -i linux-415.patch
 
 RUN export install=/android/kernel/ \
 && mkdir -p $install \
@@ -134,6 +136,7 @@ RUN export install=/android/kernel/ \
 && scripts/config --disable CONFIG_SOC_CAMERA \
 && scripts/config --disable CONFIG_VIDEO_DEV \
 && scripts/config --disable CONFIG_WIRELESS \
+&& scripts/config --disable CONFIG_MAC80211 \
 #
 # Build
 #
