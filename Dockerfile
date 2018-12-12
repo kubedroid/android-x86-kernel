@@ -61,9 +61,9 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && scripts/config --disable CONFIG_DRM_MGAG200 \
 && scripts/config --disable CONFIG_DRM_BOCHS \
 && scripts/config --disable CONFIG_DRM_VMWGFX \
-#&& scripts/config --disable CONFIG_EXTCON \
-#&& scripts/config --disable CONFIG_I2C \
-#&& scripts/config --disable CONFIG_HWMON \
+&& scripts/config --disable CONFIG_EXTCON \
+&& scripts/config --disable CONFIG_I2C \
+&& scripts/config --disable CONFIG_HWMON \
 && scripts/config --disable CONFIG_REISERFS_FS \
 && scripts/config --disable CONFIG_JFS_FS \
 && scripts/config --disable CONFIG_XFS_FS \
@@ -79,7 +79,7 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && scripts/config --disable CONFIG_INPUT_JOYDEV \
 && scripts/config --disable CONFIG_INPUT_TOUCHSCREEN \
 && scripts/config --disable CONFIG_INPUT_MISC \
-#&& scripts/config --disable CONFIG_MEDIA_SUPPORT \
+# && scripts/config --disable CONFIG_MEDIA_SUPPORT \
 && scripts/config --disable CONFIG_NET_VENDOR_3COM \
 && scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC \
 && scripts/config --disable CONFIG_NET_VENDOR_AGERE \
@@ -138,7 +138,6 @@ RUN export install=/android/kernel/$KERNEL_VERSION \
 && scripts/config --disable CONFIG_SOC_CAMERA \
 && scripts/config --disable CONFIG_VIDEO_DEV \
 && scripts/config --disable CONFIG_WIRELESS \
-#&& cp .config arch/x86/configs/android-x86_64_defconfig \
 #
 # Build
 #
