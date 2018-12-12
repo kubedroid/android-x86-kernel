@@ -5,4 +5,11 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/torvalds/linux \
-&& git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6
+&& git -C linux remote add android-x86 https://scm.osdn.net/gitroot/android-x86/kernel.git \
+&& git -C linux fetch android-x86 \
+&& git -C linux remote add maurossi https://github.com/maurossi/linux \
+&& git -C linux fetch maurossi \
+&& git -C linux remote add gvt-linux https://github.com/intel/gvt-linux \
+&& git -C linux fetch gvt-linux \
+&& git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6 \
+&& git clone https://github.com/kubedroid/virtual_touchscreen
