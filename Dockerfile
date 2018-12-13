@@ -4,8 +4,13 @@ FROM quay.io/quamotion/android-x86-kernel:base AS build
 ENV KERNEL_VERSION=maurossi/kernel-4.15
 
 RUN cd linux \
+&& git config --global user.email "build@kubedroid.io" \
+&& git config --global user.name "Kubedroid build" \
 && git fetch maurossi \
-&& git checkout $KERNEL_VERSION
+&& git checkout $KERNEL_VERSION \
+&& git remote add chromium https://chromium.googlesource.com/chromiumos/third_party/kernel \
+&& git fetch chromium \
+&& git cherry-pick a936c044f9084f6a5dc0642076b325c396412a6b
 
 RUN cd linux \
 # See https://github.com/maurossi/linux/blob/kernel-4.20rc6/drivers/net/wireless/broadcom/wl/build.mk
