@@ -51,18 +51,18 @@ RUN export install=/android/kernel/ \
 # Trim down kernel
 #
 # && scripts/config --disable DEBUG_INFO \
-# && scripts/config --disable CONFIG_BT \
-# && scripts/config --disable CONFIG_DRM_RADEON \
-# && scripts/config --disable CONFIG_DRM_AMDGPU \
-# && scripts/config --disable CONFIG_DRM_NOUVEAU \
-# && scripts/config --disable CONFIG_DRM_GMA500 \
-# && scripts/config --disable CONFIG_DRM_GMA600 \
-# && scripts/config --disable CONFIG_DRM_GMA3600 \
-# && scripts/config --disable CONFIG_DRM_UDL \
-# && scripts/config --disable CONFIG_DRM_AST \
-# && scripts/config --disable CONFIG_DRM_MGAG200 \
-# && scripts/config --disable CONFIG_DRM_BOCHS \
-# && scripts/config --disable CONFIG_DRM_VMWGFX \
+&& scripts/config --disable CONFIG_BT \
+&& scripts/config --disable CONFIG_DRM_RADEON \
+&& scripts/config --disable CONFIG_DRM_AMDGPU \
+&& scripts/config --disable CONFIG_DRM_NOUVEAU \
+&& scripts/config --disable CONFIG_DRM_GMA500 \
+&& scripts/config --disable CONFIG_DRM_GMA600 \
+&& scripts/config --disable CONFIG_DRM_GMA3600 \
+&& scripts/config --disable CONFIG_DRM_UDL \
+&& scripts/config --disable CONFIG_DRM_AST \
+&& scripts/config --disable CONFIG_DRM_MGAG200 \
+&& scripts/config --disable CONFIG_DRM_BOCHS \
+&& scripts/config --disable CONFIG_DRM_VMWGFX \
 # && scripts/config --disable CONFIG_EXTCON \
 # && scripts/config --disable CONFIG_I2C \
 # && scripts/config --disable CONFIG_HWMON \
