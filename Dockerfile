@@ -24,7 +24,6 @@ RUN cd linux \
 && patch -p1 -d $BROADCOM_DIR -i linux-411.patch \
 && patch -p1 -d $BROADCOM_DIR -i linux-412.patch
 #&& patch -p1 -d $BROADCOM_DIR -i linux-415.patch
->>>>>>> f951793... Try a patch for Android < 7 compat
 
 RUN export install=/android/kernel/ \
 && mkdir -p $install \
@@ -80,7 +79,8 @@ RUN export install=/android/kernel/ \
 && scripts/config --disable CONFIG_UDF_FS \
 && scripts/config --disable CONFIG_9P_FS \
 && scripts/config --disable CONFIG_CIFS \
-&& scripts/config --disable CONFIG_FUSE_FS \
+# FUSE is required by Android, don't enable it.
+# && scripts/config --disable CONFIG_FUSE_FS \
 # && scripts/config --disable CONFIG_IIO \
 # && scripts/config --disable CONFIG_INPUT_LEDS \
 # && scripts/config --disable CONFIG_INPUT_JOYDEV \
