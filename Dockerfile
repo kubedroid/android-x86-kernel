@@ -82,58 +82,58 @@ RUN export install=/android/kernel/ \
 # && scripts/config --disable CONFIG_INPUT_TOUCHSCREEN \
 # && scripts/config --disable CONFIG_INPUT_MISC \
 # && scripts/config --disable CONFIG_MEDIA_SUPPORT \
-# && scripts/config --disable CONFIG_NET_VENDOR_3COM \
-# && scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC \
-# && scripts/config --disable CONFIG_NET_VENDOR_AGERE \
-# && scripts/config --disable CONFIG_NET_VENDOR_ALTEON \
-# && scripts/config --disable CONFIG_NET_VENDOR_AMAZON \
-# && scripts/config --disable CONFIG_NET_VENDOR_AMD \
-# && scripts/config --disable CONFIG_NET_VENDOR_ARC \
-# && scripts/config --disable CONFIG_NET_VENDOR_ATHEROS \
-# && scripts/config --disable CONFIG_NET_VENDOR_AURORA \
-# && scripts/config --disable CONFIG_NET_VENDOR_BROADCOM \
-# && scripts/config --disable CONFIG_NET_VENDOR_BROCADE \
-# && scripts/config --disable CONFIG_NET_VENDOR_CAVIUM \
-# && scripts/config --disable CONFIG_NET_VENDOR_CHELSIO \
-# && scripts/config --disable CONFIG_NET_VENDOR_CISCO \
-# && scripts/config --disable CONFIG_NET_VENDOR_DEC \
-# && scripts/config --disable CONFIG_NET_VENDOR_DLINK \
-# && scripts/config --disable CONFIG_NET_VENDOR_EMULEX \
-# && scripts/config --disable CONFIG_NET_VENDOR_EZCHIP \
-# && scripts/config --disable CONFIG_NET_VENDOR_EXAR \
-# && scripts/config --disable CONFIG_NET_VENDOR_FUJITSU \
-# && scripts/config --disable CONFIG_NET_VENDOR_HP \
+&& scripts/config --disable CONFIG_NET_VENDOR_3COM \
+&& scripts/config --disable CONFIG_NET_VENDOR_ADAPTEC \
+&& scripts/config --disable CONFIG_NET_VENDOR_AGERE \
+&& scripts/config --disable CONFIG_NET_VENDOR_ALTEON \
+&& scripts/config --disable CONFIG_NET_VENDOR_AMAZON \
+&& scripts/config --disable CONFIG_NET_VENDOR_AMD \
+&& scripts/config --disable CONFIG_NET_VENDOR_ARC \
+&& scripts/config --disable CONFIG_NET_VENDOR_ATHEROS \
+&& scripts/config --disable CONFIG_NET_VENDOR_AURORA \
+&& scripts/config --disable CONFIG_NET_VENDOR_BROADCOM \
+&& scripts/config --disable CONFIG_NET_VENDOR_BROCADE \
+&& scripts/config --disable CONFIG_NET_VENDOR_CAVIUM \
+&& scripts/config --disable CONFIG_NET_VENDOR_CHELSIO \
+&& scripts/config --disable CONFIG_NET_VENDOR_CISCO \
+&& scripts/config --disable CONFIG_NET_VENDOR_DEC \
+&& scripts/config --disable CONFIG_NET_VENDOR_DLINK \
+&& scripts/config --disable CONFIG_NET_VENDOR_EMULEX \
+&& scripts/config --disable CONFIG_NET_VENDOR_EZCHIP \
+&& scripts/config --disable CONFIG_NET_VENDOR_EXAR \
+&& scripts/config --disable CONFIG_NET_VENDOR_FUJITSU \
+&& scripts/config --disable CONFIG_NET_VENDOR_HP \
 # keep intel
-# && scripts/config --disable CONFIG_NET_VENDOR_I825XX \
-# && scripts/config --disable CONFIG_NET_VENDOR_MARVELL \
-# && scripts/config --disable CONFIG_NET_VENDOR_MELLANOX \
-# && scripts/config --disable CONFIG_NET_VENDOR_MICREL \
-# && scripts/config --disable CONFIG_NET_VENDOR_MICROCHIP \
-# && scripts/config --disable CONFIG_NET_VENDOR_MYRI \
-# && scripts/config --disable CONFIG_NET_VENDOR_NATSEMI \
-# && scripts/config --disable CONFIG_NET_VENDOR_NETRONOME \
-# && scripts/config --disable CONFIG_NET_VENDOR_8390 \
-# && scripts/config --disable CONFIG_NET_VENDOR_NVIDIA \
-# && scripts/config --disable CONFIG_NET_VENDOR_OKI \
-# && scripts/config --disable CONFIG_NET_VENDOR_QLOGIC \
-# && scripts/config --disable CONFIG_NET_VENDOR_QUALCOMM \
-# && scripts/config --disable CONFIG_NET_VENDOR_REALTEK \
-# && scripts/config --disable CONFIG_NET_VENDOR_RENESAS \
-# && scripts/config --disable CONFIG_NET_VENDOR_RDC \
-# && scripts/config --disable CONFIG_NET_VENDOR_ROCKER \
-# && scripts/config --disable CONFIG_NET_VENDOR_SAMSUNG \
-# && scripts/config --disable CONFIG_NET_VENDOR_SEEQ \
-# && scripts/config --disable CONFIG_NET_VENDOR_SILAN \
-# && scripts/config --disable CONFIG_NET_VENDOR_SIS \
-# && scripts/config --disable CONFIG_NET_VENDOR_SMSC \
-# && scripts/config --disable CONFIG_NET_VENDOR_STMICRO \
-# && scripts/config --disable CONFIG_NET_VENDOR_SUN \
-# && scripts/config --disable CONFIG_NET_VENDOR_SYNOPSYS \
-# && scripts/config --disable CONFIG_NET_VENDOR_TEHUTI \
-# && scripts/config --disable CONFIG_NET_VENDOR_TI \
-# && scripts/config --disable CONFIG_NET_VENDOR_VIA \
-# && scripts/config --disable CONFIG_NET_VENDOR_WIZNET \
-# && scripts/config --disable CONFIG_NET_VENDOR_XIRCOM \
+&& scripts/config --disable CONFIG_NET_VENDOR_I825XX \
+&& scripts/config --disable CONFIG_NET_VENDOR_MARVELL \
+&& scripts/config --disable CONFIG_NET_VENDOR_MELLANOX \
+&& scripts/config --disable CONFIG_NET_VENDOR_MICREL \
+&& scripts/config --disable CONFIG_NET_VENDOR_MICROCHIP \
+&& scripts/config --disable CONFIG_NET_VENDOR_MYRI \
+&& scripts/config --disable CONFIG_NET_VENDOR_NATSEMI \
+&& scripts/config --disable CONFIG_NET_VENDOR_NETRONOME \
+&& scripts/config --disable CONFIG_NET_VENDOR_8390 \
+&& scripts/config --disable CONFIG_NET_VENDOR_NVIDIA \
+&& scripts/config --disable CONFIG_NET_VENDOR_OKI \
+&& scripts/config --disable CONFIG_NET_VENDOR_QLOGIC \
+&& scripts/config --disable CONFIG_NET_VENDOR_QUALCOMM \
+&& scripts/config --disable CONFIG_NET_VENDOR_REALTEK \
+&& scripts/config --disable CONFIG_NET_VENDOR_RENESAS \
+&& scripts/config --disable CONFIG_NET_VENDOR_RDC \
+&& scripts/config --disable CONFIG_NET_VENDOR_ROCKER \
+&& scripts/config --disable CONFIG_NET_VENDOR_SAMSUNG \
+&& scripts/config --disable CONFIG_NET_VENDOR_SEEQ \
+&& scripts/config --disable CONFIG_NET_VENDOR_SILAN \
+&& scripts/config --disable CONFIG_NET_VENDOR_SIS \
+&& scripts/config --disable CONFIG_NET_VENDOR_SMSC \
+&& scripts/config --disable CONFIG_NET_VENDOR_STMICRO \
+&& scripts/config --disable CONFIG_NET_VENDOR_SUN \
+&& scripts/config --disable CONFIG_NET_VENDOR_SYNOPSYS \
+&& scripts/config --disable CONFIG_NET_VENDOR_TEHUTI \
+&& scripts/config --disable CONFIG_NET_VENDOR_TI \
+&& scripts/config --disable CONFIG_NET_VENDOR_VIA \
+&& scripts/config --disable CONFIG_NET_VENDOR_WIZNET \
+&& scripts/config --disable CONFIG_NET_VENDOR_XIRCOM \
 # && scripts/config --disable CONFIG_MEDIA_TUNER \
 # && scripts/config --disable CONFIG_SCSI \
 # && scripts/config --disable CONFIG_SND \
