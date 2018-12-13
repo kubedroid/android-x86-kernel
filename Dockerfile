@@ -139,6 +139,14 @@ RUN export install=/android/kernel/ \
 # && scripts/config --disable CONFIG_VIDEO_DEV \
 && scripts/config --disable CONFIG_WIRELESS \
 && scripts/config --disable CONFIG_MAC80211 \
+&& scripts/config --disable CONFIG_WLAN \
+&& scripts/config --disable CONFIG_CFG80211 \
+&& scripts/config --disable WLAN_VENDOR_BROADCOM \
+# These drivers have no declared dependencies in 4.13, so
+# we need to explicitely exclude them
+&& scripts/config --disable CONFIG_RTL8723BU \
+&& scripts/config --disable CONFIG_RTL8821AU \
+&& scripts/config --disable CONFIG_DVB \
 #
 # Build
 #
