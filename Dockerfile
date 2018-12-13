@@ -11,5 +11,9 @@ RUN git clone https://github.com/torvalds/linux \
 && git -C linux fetch maurossi \
 && git -C linux remote add gvt-linux https://github.com/intel/gvt-linux \
 && git -C linux fetch gvt-linux \
+&& git -C linux remote add chromium https://chromium.googlesource.com/chromiumos/third_party/kernel \
+&& git -C linux fetch chromium \
 && git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6 \
-&& git clone https://github.com/kubedroid/virtual_touchscreen
+&& git clone https://github.com/kubedroid/virtual_touchscreen \
+&& git config --global user.email "build@kubedroid.io" \
+&& git config --global user.name "Kubedroid build"
