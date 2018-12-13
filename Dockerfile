@@ -2,13 +2,16 @@
 FROM quay.io/quamotion/android-x86-kernel:base AS build
 
 ENV KERNEL_VERSION=gvt-linux/gvt-stable-4.17
+ENV ANDROID_KERNEL_VERSION=maurossi/kernel-4.17
 
 RUN cd linux \
 && git config --global user.email "build@kubedroid.io" \
 && git config --global user.name "Kubedroid build" \
 && git fetch gvt-linux \
 && git fetch chromium \
-&& git checkout $KERNEL_VERSION \
+&& git fetch maurossi \
+&& git checkout $ANDROID_KERNEL_VERSION \
+&& git rebase $KERNEL_VERSION \
 && git cherry-pick a936c044f9084f6a5dc0642076b325c396412a6b
 
 RUN cd linux \
@@ -32,7 +35,7 @@ RUN export install=/android/kernel/ \
 && export CROSS_COMPILE=$gcc \
 && export INSTALL_MOD_PATH=$install \
 && export INSTALL_PATH=$install \
-&& export LOCALVERSION="-kubedroid-guest" \
+&& export LOCALVERSION="-kubedroid-guest-gvt" \
 && cd linux \
 && cp arch/x86/configs/android-x86_64_defconfig .config \
 && echo "" | make olddefconfig \
