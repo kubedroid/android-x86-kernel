@@ -4,11 +4,8 @@ FROM quay.io/quamotion/android-x86-kernel:base AS build
 ENV KERNEL_VERSION=maurossi/kernel-4.14
 
 RUN cd linux \
-&& git config --global user.email "build@kubedroid.io" \
-&& git config --global user.name "Kubedroid build" \
 && git fetch maurossi \
 && git checkout $KERNEL_VERSION \
-&& git remote add chromium https://chromium.googlesource.com/chromiumos/third_party/kernel \
 && git fetch chromium \
 && git cherry-pick a936c044f9084f6a5dc0642076b325c396412a6b
 
@@ -80,7 +77,8 @@ RUN export install=/android/kernel/ \
 && scripts/config --disable CONFIG_UDF_FS \
 && scripts/config --disable CONFIG_9P_FS \
 && scripts/config --disable CONFIG_CIFS \
-&& scripts/config --disable CONFIG_FUSE_FS \
+# FUSE is required by Android, don't enable it.
+# && scripts/config --disable CONFIG_FUSE_FS \
 # && scripts/config --disable CONFIG_IIO \
 # && scripts/config --disable CONFIG_INPUT_LEDS \
 # && scripts/config --disable CONFIG_INPUT_JOYDEV \
