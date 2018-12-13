@@ -1,7 +1,7 @@
 
 FROM quay.io/quamotion/android-x86-kernel:base AS build
 
-ENV KERNEL_VERSION=maurossi/kernel-4.14
+ENV KERNEL_VERSION=maurossi/kernel-4.15
 
 RUN cd linux \
 && git fetch maurossi \
@@ -18,8 +18,8 @@ RUN cd linux \
 && patch -p1 -d $BROADCOM_DIR -i linux-recent.patch \
 && patch -p1 -d $BROADCOM_DIR -i linux-48.patch \
 && patch -p1 -d $BROADCOM_DIR -i linux-411.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-412.patch
-#&& patch -p1 -d $BROADCOM_DIR -i linux-415.patch
+&& patch -p1 -d $BROADCOM_DIR -i linux-412.patch \
+&& patch -p1 -d $BROADCOM_DIR -i linux-415.patch
 
 RUN export install=/android/kernel/ \
 && mkdir -p $install \
