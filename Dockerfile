@@ -1,25 +1,23 @@
 
 FROM quay.io/quamotion/android-x86-kernel:base AS build
 
-ENV KERNEL_VERSION=maurossi/kernel-4.20rc6
+ENV KERNEL_VERSION=gvt-linux/gvt-stable-4.17
 
 RUN cd linux \
-&& git fetch maurossi \
-&& git checkout $KERNEL_VERSION
-
-RUN cd linux \
-# See https://github.com/maurossi/linux/blob/kernel-4.20rc6/drivers/net/wireless/broadcom/wl/build.mk
-&& export BROADCOM_DIR=drivers/net/wireless/broadcom/wl \
-&& wget https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz \
-&& tar zxf hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz -C $BROADCOM_DIR --overwrite -m \
-&& rm -rf hybrid-v35_64-nodebug-pcoem-6_30_223_271.tar.gz \
-&& mv $BROADCOM_DIR/lib $BROADCOM_DIR/lib64 \
-&& patch -p1 -d $BROADCOM_DIR -i wl.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-recent.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-48.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-411.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-412.patch \
-&& patch -p1 -d $BROADCOM_DIR -i linux-415.patch
+&& git fetch gvt-linux \
+&& git checkout $KERNEL_VERSION \
+&& git config --global user.email "build@kubedroid.io" \
+&& git config --global user.email "KubeDroid Build Agent" \
+# && git cherry-pick e9ef547c41ce071b90c720c24bfc3d3c3a03fbc0 \
+&& git cherry-pick 18e4b0491577b6e13a47a52148482f2af1902d0b \
+&& git cherry-pick b858129dab5b207da8f1198a4d01d104c6ddcabb \
+&& git cherry-pick ee4473e49459cd2c042a091d23ea806bc9e9490e \
+&& git cherry-pick 6f5f96fd2df85771674adcf997058a6146971c28 \
+&& git cherry-pick 229d587317c4dba4be21402d33275205d260b11b \
+&& git cherry-pick 4acebc187f0aa3cbbf8187daa8d5634809602395 \
+# && git cherry-pick 3453a5a5074b05b518ea627a9e2ccfec8bea33c9 \
+&& git cherry-pick cb5f617fb25afe4b81cc6c5905443758e187a315 \
+&& git cherry-pick 059b3e490d3a5e1a301b957f4535c61d3525d16a
 
 RUN export install=/android/kernel/ \
 && mkdir -p $install \
