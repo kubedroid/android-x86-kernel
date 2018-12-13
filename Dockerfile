@@ -66,16 +66,16 @@ RUN export install=/android/kernel/ \
 # && scripts/config --disable CONFIG_EXTCON \
 # && scripts/config --disable CONFIG_I2C \
 # && scripts/config --disable CONFIG_HWMON \
-# && scripts/config --disable CONFIG_REISERFS_FS \
-# && scripts/config --disable CONFIG_JFS_FS \
-# && scripts/config --disable CONFIG_XFS_FS \
-# && scripts/config --disable CONFIG_OCFS2_FS \
-# && scripts/config --disable CONFIG_BTRFS_FS \
-# && scripts/config --disable CONFIG_F2FS_FS \
-# && scripts/config --disable CONFIG_UDF_FS \
-# && scripts/config --disable CONFIG_9P_FS \
-# && scripts/config --disable CONFIG_CIFS \
-# && scripts/config --disable CONFIG_FUSE_FS \
+&& scripts/config --disable CONFIG_REISERFS_FS \
+&& scripts/config --disable CONFIG_JFS_FS \
+&& scripts/config --disable CONFIG_XFS_FS \
+&& scripts/config --disable CONFIG_OCFS2_FS \
+&& scripts/config --disable CONFIG_BTRFS_FS \
+&& scripts/config --disable CONFIG_F2FS_FS \
+&& scripts/config --disable CONFIG_UDF_FS \
+&& scripts/config --disable CONFIG_9P_FS \
+&& scripts/config --disable CONFIG_CIFS \
+&& scripts/config --disable CONFIG_FUSE_FS \
 # && scripts/config --disable CONFIG_IIO \
 # && scripts/config --disable CONFIG_INPUT_LEDS \
 # && scripts/config --disable CONFIG_INPUT_JOYDEV \
@@ -139,8 +139,8 @@ RUN export install=/android/kernel/ \
 # && scripts/config --disable CONFIG_SND \
 # && scripts/config --disable CONFIG_SOC_CAMERA \
 # && scripts/config --disable CONFIG_VIDEO_DEV \
-# && scripts/config --disable CONFIG_WIRELESS \
-# && scripts/config --disable CONFIG_MAC80211 \
+&& scripts/config --disable CONFIG_WIRELESS \
+&& scripts/config --disable CONFIG_MAC80211 \
 #
 # Build
 #
