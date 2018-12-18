@@ -1,5 +1,4 @@
-
-FROM quay.io/quamotion/android-x86-kernel:base AS build
+FROM quay.io/kubedroid/android-x86-kernel:base AS build
 
 ENV KERNEL_VERSION=maurossi/kernel-4.17
 
